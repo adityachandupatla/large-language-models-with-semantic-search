@@ -1,0 +1,43 @@
+
+Keyword search
+
+	Query is sent to search system
+
+	We use inverted index (i.e. for each word maintain an array of document ID's where the word occurs)
+
+	Using the query, retrieve all such documents
+
+	Rank the documents
+
+	Provide search results
+
+	Disadvantage
+
+		We retrieve documents only based on keywords (not their synonyms or meanings, sometimes we even lose context of grammar of the entire sentence)
+
+Dense retrieval (nearest k neighbors in vector space)
+
+	Embeddings
+
+		Convert every word to vector (n dimensional space)
+
+		You can use embed() function from Cohere Python package
+
+		Note: a question and its corresponding correct answer will be closes to each other in n-dimensional space
+
+	We use embeddings for dense retrieval (dense retrieval is retrieval from vector DB)
+
+	Note: we can also query in different languages (provided we use the appropriate embeddings)
+
+	Note: Finding the exact nearest neighbors is expensive and slow, that's the reason why we employ approximate nearest neighbor search
+
+Rerank
+
+	This is a technique to sort the search results from best to worst based on relevance to the input query/prompt
+
+	The problem with dense retrieval is, when we pick K nearest neighbors, we need some way to break the tie if we want to respond with a single answer
+
+	The way rerank assigns relevance scores to the K nearest neighbors is again through traditional ML
+
+	We extract a list of questions and their corresponding correct answers (i.e. we build such pairs). We also do it for incorrect question-answer pairs. Rerank model is trained on this. (similar to embeddings we need to pick some pre-built model for reranking)
+
